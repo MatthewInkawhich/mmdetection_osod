@@ -157,18 +157,14 @@ def main():
 
     # Update data according to args.datasplit
     if args.datasplit == "train":
-        cfg.data.test.classes = cfg.data.train.classes
         cfg.data.test.ann_file = cfg.data.train.ann_file
         cfg.data.test.img_prefix = cfg.data.train.img_prefix
     elif args.datasplit == "val":
-        cfg.data.test.classes = cfg.data.osodd_val.classes
-        cfg.data.test.ann_file = cfg.data.osodd_val.ann_file
-        cfg.data.test.img_prefix = cfg.data.osodd_val.img_prefix
+        #cfg.data.test.ann_file = cfg.data.val.ann_file
+        #cfg.data.test.img_prefix = cfg.data.val.img_prefix
+        cfg.data.test = cfg.data.osodd_val
     else:
-        cfg.data.test.classes = cfg.data.osodd_test.classes
-        cfg.data.test.ann_file = cfg.data.osodd_test.ann_file
-        cfg.data.test.img_prefix = cfg.data.osodd_test.img_prefix
-
+        cfg.data.test = cfg.data.osodd_test
 
     test_dataloader_default_args = dict(
         samples_per_gpu=1, workers_per_gpu=2, dist=distributed, shuffle=False)

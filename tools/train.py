@@ -214,6 +214,9 @@ def main():
         train_cfg=cfg.get('train_cfg'),
         test_cfg=cfg.get('test_cfg'))
     model.init_weights()
+    num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print("num_params:", num_params)
+    #exit()
 
     # init rfnext if 'RFSearchHook' is defined in cfg
     rfnext_init_model(model, cfg=cfg)
